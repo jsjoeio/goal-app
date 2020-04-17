@@ -9,4 +9,4 @@ let style = document##createElement("style");
 document##head##appendChild(style);
 style##innerHTML #= ExampleStyles.style;
 
-ReactDOMRe.renderToElementWithId(<App />, "root");
+ReactDOMRe.renderToElementWithId(<ApolloHooks.Provider client=Client.instance><App /></ApolloHooks.Provider>, "root");

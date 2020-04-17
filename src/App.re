@@ -4,5 +4,6 @@ let make = () => {
    <h1>
     {React.string("This is my cool app!")}
    </h1>
+   <Example />
   </div>;
 };
