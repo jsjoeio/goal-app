@@ -20,21 +20,18 @@ let make = () => {
     {switch (simple) {
      | Loading => <p> {React.string("Loading...")} </p>
      | Data(data) =>
-        let currencies =
-          switch (data##rates) {
-          | Some(rates) =>
-            rates->Array.map(rate =>
-              rate
-              ->Option.map(rate => rate##currency)
-              ->Option.mapWithDefault(React.null, currency =>
-                  switch (currency) {
-                  | Some(currency) => <p> {React.string(currency)} </p>
-                  | None => React.null
-                  }
-                )
-            )
-          | None => [||]
-          };
+       let currencies =
+         switch (data##rates) {
+         | Some(rates) =>
+           rates->Array.map(rate =>
+             rate
+             ->Option.flatMap(rate => rate##currency)
+             ->Option.mapWithDefault(React.null, currency =>
+                 <p> {React.string(currency)} </p>
+               )
+           )
+         | None => [||]
+         };
        React.array(currencies);
      | NoData
      | Error(_) => <p> {React.string("Get off my lawn!")} </p>
